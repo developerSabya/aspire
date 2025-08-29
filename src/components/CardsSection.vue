@@ -1,15 +1,15 @@
 <template>
     <div class="q-pa-xl">
         <div class="row">
-            <div class="col-2">
+            <div class="col-md-2 col-sm-5">
                 <div class="text-caption">Available Balance</div>
                 <q-chip square class="bg-transparent text-weight-bold">
                     <q-avatar color="green" text-color="white">S$</q-avatar>
                     {{ selectedCardBalance }}
                 </q-chip>
             </div>
-            <div class="col-7"></div>
-            <div class="col-3 flex flex-row justify-end items-end">
+            <div class="col-md-7 col-sm-2"></div>
+            <div class="col-md-3 col-sm-5 flex flex-row justify-end items-end">
                 <q-btn color="primary" icon="add" label="New card" no-caps class="new-card"
                     @click="showNewCard = true" />
             </div>

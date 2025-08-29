@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="col-6">
+		<div class="col-md-6 col-sm-12">
 			<div class="flex justify-end items-end">
 				<q-btn style="color: #01D167" :icon="showCardNumber ? 'visibility_off' : 'visibility'"
 					:label="showCardNumber ? 'Hide Card Number' : 'Show Card Number'" no-caps class="new-card" flat
@@ -16,7 +16,7 @@
 			</q-carousel>
 			<CardControls> </CardControls>
 		</div>
-		<div class="col-6">
+		<div class="col-md-6 col-sm-12">
 			<CardInformation :card="cardsToShow.find(card => card.id === slide)" />
 		</div>
 	</div>
