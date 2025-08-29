@@ -5,7 +5,7 @@
                 <div class="text-caption">Available Balance</div>
                 <q-chip square class="bg-transparent text-weight-bold">
                     <q-avatar color="green" text-color="white">S$</q-avatar>
-                    3,000
+                    {{ selectedCardBalance }}
                 </q-chip>
             </div>
             <div class="col-7"></div>
@@ -25,7 +25,7 @@
                     <q-tab-panel name="myCards">
                         <Suspense>
                             <template #default>
-                                <MyCards />
+                                <MyCards :selectedCardIndex="selectedCardIndex" @update:selectedCardIndex="selectedCardIndex = $event" />
                             </template>
                             <template #fallback>
                                 <div>Loading...</div>
@@ -50,18 +50,28 @@ import MyCards from './MyCards.vue';
 import NewCardForm from './NewCardForm.vue';
 import { useCardStore } from '../stores/cardStore';
 
+import { computed } from 'vue';
+
 export default {
     name: 'CardsSection',
     data() {
         return {
             tab: 'myCards',
-            showNewCard: false
+            showNewCard: false,
+            selectedCardIndex: 0
         }
     },
     components: {
         MyCards,
         CompanyCards,
         NewCardForm
+    },
+    computed: {
+        selectedCardBalance() {
+            const cardStore = useCardStore();
+            // Show balance of the first card by default, or 0 if none
+            return cardStore.allMyCards[this.selectedCardIndex]?.balance ?? 0;
+        }
     },
     methods: {
         handleCreateCard({ cardName, cardType }) {
@@ -79,7 +89,8 @@ export default {
                 cardType,
                 expiry,
                 cvv,
-                cardHolder
+                cardHolder,
+                balance: 0
             });
         }
     }
