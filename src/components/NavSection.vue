@@ -27,7 +27,7 @@
             <q-item-section thumbnail class="section-image">
                 <img src="../assets/Credit.svg" alt="Credit" width="24px" height="24px" />
             </q-item-section>
-            <q-item-section class="section-text">Cards</q-item-section>
+            <q-item-section class="section-text">Credit</q-item-section>
         </q-item>
         <q-item to="/settings" clickable v-ripple>
             <q-item-section thumbnail class="section-image">

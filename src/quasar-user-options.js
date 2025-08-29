@@ -9,10 +9,13 @@ import '@quasar/extras/material-icons-sharp/material-icons-sharp.css'
 import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'
 import '@quasar/extras/eva-icons/eva-icons.css'
 
-// To be used on app.use(Quasar, { ... })
+import { Dialog, Notify } from 'quasar'
+
 export default {
   config: {},
   plugins: {
+    Dialog,
+    Notify
   },
   iconSet: iconSet
 }

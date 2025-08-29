@@ -30,7 +30,7 @@
                                     @update:selectedCardIndex="selectedCardIndex = $event" />
                             </template>
                             <template #fallback>
-                                <div>Loading...</div>
+                                <q-spinner-cube color="green" size="5.5em" />
                             </template>
                         </Suspense>
                     </q-tab-panel>
@@ -41,7 +41,7 @@
                                 <CardCarousel cardType="company"></CardCarousel>
                             </template>
                             <template #fallback>
-                                <div>Loading...</div>
+                                <q-spinner-cube color="green" size="5.5em" />
                             </template>
                         </Suspense>
                     </q-tab-panel>
