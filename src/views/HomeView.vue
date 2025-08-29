@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <q-card bordered class="my-card q-pa-md q-mb-md flex flex-center">
+    <h3>Hello Mark Henry!</h3>
+    </q-card>
   </div>
 </template>
 
