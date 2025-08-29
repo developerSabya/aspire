@@ -18,6 +18,7 @@
                         <div><strong>Expiry:</strong> {{ card.expiry || '--/--' }}</div>
                         <div><strong>Holder Name:</strong> {{ card.cardHolder || 'N/A' }}</div>
                         <div v-if="card.cardType"><strong>Type:</strong> {{ card.cardType }}</div>
+                        <div v-if="card.department"><strong>Department:</strong> {{ card.department }}</div>
                     </div>
                     <div v-else class="text-grey-7 q-pa-sm">
                         No card selected.

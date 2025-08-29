@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 import { mockTransactions } from './mockTransactions';
 import { mockCards } from './mockCards';
+import { mockCompanyCards } from './mockCompanyCards';
 
 export const useCardStore = defineStore('cardStore', {
   state: () => ({
-  allMyCards: [],
+    allMyCards: [],
+    companyCards: [],
     showCardNumber: false,
-  transactions: [],
+    transactions: [],
   }),
   getters: {
     transactionsByCard: (state) => (cardId) => {
@@ -31,6 +33,15 @@ export const useCardStore = defineStore('cardStore', {
       return new Promise((resolve) => {
         setTimeout(() => {
           this.allMyCards = mockCards;
+          resolve();
+        }, 500);
+      });
+    },
+    async fetchCompanyCards() {
+      // Simulate API call delay
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          this.companyCards = mockCompanyCards;
           resolve();
         }, 500);
       });

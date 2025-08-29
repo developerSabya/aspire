@@ -10,7 +10,8 @@
             </div>
             <div class="col-7"></div>
             <div class="col-3 flex flex-row justify-end items-end">
-                <q-btn color="primary" icon="add" label="New card" no-caps class="new-card" @click="showNewCard = true" />
+                <q-btn color="primary" icon="add" label="New card" no-caps class="new-card"
+                    @click="showNewCard = true" />
             </div>
         </div>
 
@@ -25,7 +26,8 @@
                     <q-tab-panel name="myCards">
                         <Suspense>
                             <template #default>
-                                <MyCards :selectedCardIndex="selectedCardIndex" @update:selectedCardIndex="selectedCardIndex = $event" />
+                                <MyCards :selectedCardIndex="selectedCardIndex"
+                                    @update:selectedCardIndex="selectedCardIndex = $event" />
                             </template>
                             <template #fallback>
                                 <div>Loading...</div>
@@ -34,13 +36,21 @@
                     </q-tab-panel>
 
                     <q-tab-panel name="companyCards">
-                        <CompanyCards />
+                        <Suspense>
+                            <template #default>
+                                <CardCarousel cardType="company"></CardCarousel>
+                            </template>
+                            <template #fallback>
+                                <div>Loading...</div>
+                            </template>
+                        </Suspense>
                     </q-tab-panel>
                 </q-tab-panels>
             </q-card-section>
         </q-card>
     </div>
-    <NewCardForm :model-value="showNewCard" @update:modelValue="showNewCard = $event" @close="showNewCard = false" @create="handleCreateCard" />
+    <NewCardForm :model-value="showNewCard" @update:modelValue="showNewCard = $event" @close="showNewCard = false"
+        @create="handleCreateCard" />
 </template>
 
 
@@ -51,6 +61,7 @@ import NewCardForm from './NewCardForm.vue';
 import { useCardStore } from '../stores/cardStore';
 
 import { computed } from 'vue';
+import CardCarousel from './CardCarousel.vue';
 
 export default {
     name: 'CardsSection',
@@ -64,7 +75,8 @@ export default {
     components: {
         MyCards,
         CompanyCards,
-        NewCardForm
+        NewCardForm,
+        CardCarousel
     },
     computed: {
         selectedCardBalance() {
@@ -76,13 +88,13 @@ export default {
     methods: {
         handleCreateCard({ cardName, cardType }) {
             // Generate random card number, expiry, cvv
-            const randomDigits = (len) => Array.from({length: len}, () => Math.floor(Math.random()*10)).join('');
+            const randomDigits = (len) => Array.from({ length: len }, () => Math.floor(Math.random() * 10)).join('');
             const cardNumber = `${randomDigits(4)} ${randomDigits(4)} ${randomDigits(4)} ${randomDigits(4)}`;
-            const expiry = `${String(Math.floor(Math.random()*12)+1).padStart(2,'0')}/${String(new Date().getFullYear()+Math.floor(Math.random()*5)).slice(-2)}`;
+            const expiry = `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}/${String(new Date().getFullYear() + Math.floor(Math.random() * 5)).slice(-2)}`;
             const cvv = randomDigits(3);
             const cardHolder = cardName;
             const cardStore = useCardStore();
-            const newId = cardStore.allMyCards.length ? Math.max(...cardStore.allMyCards.map(c=>c.id))+1 : 1;
+            const newId = cardStore.allMyCards.length ? Math.max(...cardStore.allMyCards.map(c => c.id)) + 1 : 1;
             cardStore.allMyCards.push({
                 id: newId,
                 cardNumber,
