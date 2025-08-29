@@ -5,4 +5,10 @@ import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 import 'paymentfont/css/paymentfont.min.css'
 
-createApp(App).use(Quasar, quasarUserOptions).use(router).mount('#app')
+import { createPinia } from 'pinia';
+
+const app = createApp(App);
+app.use(createPinia());
+app.use(Quasar, quasarUserOptions);
+app.use(router);
+app.mount('#app');
