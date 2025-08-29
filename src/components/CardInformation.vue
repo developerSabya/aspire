@@ -38,25 +38,30 @@
                 </div>
             </template>
             <q-card>
-                <q-list separator :style="showAll ? 'max-height:350px;overflow-y:auto' : ''">
-                    <q-item v-for="tx in (showAll ? transactions : transactions.slice(0, 5))" :key="tx.id">
-                        <q-item-section avatar>
-                            <q-avatar :color="tx.color" text-color="white">
-                                <q-icon :name="tx.icon" />
-                            </q-avatar>
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label class="text-weight-medium">{{ tx.merchant }}</q-item-label>
-                            <q-item-label caption class="text-grey-6">{{ tx.date }}</q-item-label>
-                            <q-item-label caption v-if="tx.refund" class="text-positive">Refund on debit card</q-item-label>
-                            <q-item-label caption v-else>Charged to debit card</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                            <div :class="{ 'text-positive': tx.amount > 0, 'text-negative': tx.amount < 0, 'text-weight-bold': true }">
-                                {{ tx.amount > 0 ? '+' : '-' }} S$ {{ Math.abs(tx.amount) }}
-                            </div>
-                        </q-item-section>
-                    </q-item>
+                <q-list separator :style="showAll ? 'max-height:280px;overflow-y:auto' : ''">
+                    <template v-if="transactions.length > 0">
+                        <q-item v-for="tx in (showAll ? transactions : transactions.slice(0, 4))" :key="tx.id">
+                            <q-item-section avatar>
+                                <q-avatar :color="tx.color" text-color="white">
+                                    <q-icon :name="tx.icon" />
+                                </q-avatar>
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label class="text-weight-medium">{{ tx.merchant }}</q-item-label>
+                                <q-item-label caption class="text-grey-6">{{ tx.date }}</q-item-label>
+                                <q-item-label caption v-if="tx.refund" class="text-positive">Refund on debit card</q-item-label>
+                                <q-item-label caption v-else>Charged to debit card</q-item-label>
+                            </q-item-section>
+                            <q-item-section side>
+                                <div :class="{ 'text-positive': tx.amount > 0, 'text-negative': tx.amount < 0, 'text-weight-bold': true }">
+                                    {{ tx.amount > 0 ? '+' : '-' }} S$ {{ Math.abs(tx.amount) }}
+                                </div>
+                            </q-item-section>
+                        </q-item>
+                    </template>
+                    <template v-else>
+                        <div class="q-pa-md text-center text-grey-6">No transactions found for this card.</div>
+                    </template>
                 </q-list>
                 <div class="q-mt-md" v-if="transactions.length > 5 && !showAll">
                     <q-btn primary no-caps color="green" class="full-width bg-green-1 text-green" label="View all card transactions" @click="showAll = true" />

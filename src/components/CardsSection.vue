@@ -10,7 +10,7 @@
             </div>
             <div class="col-7"></div>
             <div class="col-3 flex flex-row justify-end items-end">
-                <q-btn color="primary" icon="add" label="New card" no-caps class="new-card" />
+                <q-btn color="primary" icon="add" label="New card" no-caps class="new-card" @click="showNewCard = true" />
             </div>
         </div>
 
@@ -40,22 +40,48 @@
             </q-card-section>
         </q-card>
     </div>
+    <NewCardForm :model-value="showNewCard" @update:modelValue="showNewCard = $event" @close="showNewCard = false" @create="handleCreateCard" />
 </template>
+
 
 <script>
 import CompanyCards from './CompanyCards.vue';
 import MyCards from './MyCards.vue';
+import NewCardForm from './NewCardForm.vue';
+import { useCardStore } from '../stores/cardStore';
 
 export default {
     name: 'CardsSection',
     data() {
         return {
-            tab: 'myCards'
+            tab: 'myCards',
+            showNewCard: false
         }
     },
     components: {
         MyCards,
-        CompanyCards
+        CompanyCards,
+        NewCardForm
+    },
+    methods: {
+        handleCreateCard({ cardName, cardType }) {
+            // Generate random card number, expiry, cvv
+            const randomDigits = (len) => Array.from({length: len}, () => Math.floor(Math.random()*10)).join('');
+            const cardNumber = `${randomDigits(4)} ${randomDigits(4)} ${randomDigits(4)} ${randomDigits(4)}`;
+            const expiry = `${String(Math.floor(Math.random()*12)+1).padStart(2,'0')}/${String(new Date().getFullYear()+Math.floor(Math.random()*5)).slice(-2)}`;
+            const cvv = randomDigits(3);
+            const cardHolder = cardName;
+            const cardStore = useCardStore();
+            const newId = cardStore.allMyCards.length ? Math.max(...cardStore.allMyCards.map(c=>c.id))+1 : 1;
+            cardStore.allMyCards.push({
+                id: newId,
+                cardNumber,
+                cardType,
+                expiry,
+                cvv,
+                cardHolder
+            });
+        }
     }
 }
 </script>
