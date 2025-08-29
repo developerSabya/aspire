@@ -16,7 +16,7 @@
             <CardControls> </CardControls>
         </div>
         <div class="col-6">
-            <CardInformation></CardInformation>
+            <CardInformation :card="allMyCards.find(card => card.id === slide)" />
         </div>
     </div>
 </template>
@@ -30,18 +30,28 @@ import CardControls from './CardControls.vue';
 import CardInformation from './CardInformation.vue';
 
 export default {
-  components: { PayCard, CardControls, CardInformation },
-  name: 'MyCards',
-  setup() {
-    const cardStore = useCardStore();
-    const { allMyCards, showCardNumber } = storeToRefs(cardStore);
-    const slide = ref(1);
-    return {
-      slide,
-      allMyCards,
-      showCardNumber,
-      cardStore
-    };
-  }
+    components: { PayCard, CardControls, CardInformation },
+    name: 'MyCards',
+    async setup() {
+        const cardStore = useCardStore();
+        const { allMyCards, showCardNumber } = storeToRefs(cardStore);
+        const slide = ref(1);
+
+
+        // Fetch cards and transactions on mount (simulate API call)
+        if (cardStore.allMyCards.length === 0) {
+            await cardStore.fetchCards();
+        }
+        if (cardStore.transactions.length === 0) {
+            await cardStore.fetchTransactions();
+        }
+
+        return {
+            slide,
+            allMyCards,
+            showCardNumber,
+            cardStore
+        };
+    }
 };
 </script>

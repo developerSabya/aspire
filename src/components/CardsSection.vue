@@ -10,7 +10,7 @@
             </div>
             <div class="col-7"></div>
             <div class="col-3 flex flex-row justify-end items-end">
-                 <q-btn color="primary" icon="add" label="New card" no-caps class="new-card"/>
+                <q-btn color="primary" icon="add" label="New card" no-caps class="new-card" />
             </div>
         </div>
 
@@ -23,7 +23,14 @@
             <q-card-section>
                 <q-tab-panels v-model="tab" animated>
                     <q-tab-panel name="myCards">
-                        <MyCards />
+                        <Suspense>
+                            <template #default>
+                                <MyCards />
+                            </template>
+                            <template #fallback>
+                                <div>Loading...</div>
+                            </template>
+                        </Suspense>
                     </q-tab-panel>
 
                     <q-tab-panel name="companyCards">
@@ -53,5 +60,4 @@ export default {
 }
 </script>
 
-<style scoped> 
-</style>
+<style scoped></style>
