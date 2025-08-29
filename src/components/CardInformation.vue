@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="q-pa-md q-pt-xl">
         <q-expansion-item label="Card details" group="cardInfo" expand-icon-side="right">
             <template #header="props">
-                <div class="flex row items-center full-width">
+                <div class="flex row items-center full-width card-header-bg q-pa-md" style="border-radius: 5px;">
                     <q-img src="../assets/Group 11889.svg" alt="Card"
                         style="width: 24px; height: 24px; margin-right: 8px;" />
                     <span class="q-expansion-item__label">Card details</span>
@@ -29,7 +29,7 @@
 
         <q-expansion-item label="Recent transactions" group="cardInfo" expand-icon-side="right" bordered>
             <template #header="props">
-                <div class="flex row items-center full-width">
+                <div class="flex row items-center full-width card-header-bg q-pa-md">
                     <q-img src="../assets/Group 118888.svg" alt="Card"
                         style="width: 24px; height: 24px; margin-right: 8px;" />
                     <span class="q-expansion-item__label">Recent transactions</span>
@@ -50,11 +50,13 @@
                             <q-item-section>
                                 <q-item-label class="text-weight-medium">{{ tx.merchant }}</q-item-label>
                                 <q-item-label caption class="text-grey-6">{{ tx.date }}</q-item-label>
-                                <q-item-label caption v-if="tx.refund" class="text-positive">Refund on debit card</q-item-label>
+                                <q-item-label caption v-if="tx.refund" class="text-positive">Refund on debit
+                                    card</q-item-label>
                                 <q-item-label caption v-else>Charged to debit card</q-item-label>
                             </q-item-section>
                             <q-item-section side>
-                                <div :class="{ 'text-positive': tx.amount > 0, 'text-negative': tx.amount < 0, 'text-weight-bold': true }">
+                                <div
+                                    :class="{ 'text-positive': tx.amount > 0, 'text-negative': tx.amount < 0, 'text-weight-bold': true }">
                                     {{ tx.amount > 0 ? '+' : '-' }} S$ {{ Math.abs(tx.amount) }}
                                 </div>
                             </q-item-section>
@@ -65,7 +67,8 @@
                     </template>
                 </q-list>
                 <div class="q-mt-md" v-if="transactions.length > 5 && !showAll">
-                    <q-btn primary no-caps color="green" class="full-width bg-green-1 text-green" label="View all card transactions" @click="showAll = true" />
+                    <q-btn primary no-caps color="green" class="full-width bg-green-1 text-green"
+                        label="View all card transactions" @click="showAll = true" />
                 </div>
                 <div class="q-mt-md" v-if="showAll && transactions.length > 5">
                     <q-btn no-caps color="grey" class="full-width" label="Show less" @click="showAll = false" />
@@ -91,7 +94,12 @@ const cardStore = useCardStore()
 const transactions = computed(() => {
     if (!props.card) return [];
     return cardStore.transactionsByCard(props.card.id);
-})
+});
 
 const showAll = ref(false)
 </script>
+<style scoped>
+.card-header-bg {
+    background: #F5F9FF;
+}
+</style>

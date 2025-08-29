@@ -1,5 +1,5 @@
 <template>
-    <div class="flex row no-wrap items-center justify-around q-pa-md card-controls">
+    <div class="flex row no-wrap items-center justify-around q-pa-sm card-controls">
         <q-btn flat no-caps class="q-mx-xs" style="padding: 0; min-width: 0;" @click="freezeCard">
             <div class="flex column items-center">
                 <q-img src="../assets/Freeze card.svg" alt="Logo" width="32px" height="32px" class="q-my-sm" />
@@ -68,5 +68,9 @@ function cancelCard() {
     color: #0C365A;
     text-align: center;
 
+}
+.card-controls {
+    background-color: #EDF3FF;
+    border-radius: 10px;
 }
 </style>

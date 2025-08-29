@@ -26,8 +26,7 @@
                     <q-tab-panel name="myCards">
                         <Suspense>
                             <template #default>
-                                <MyCards :selectedCardIndex="selectedCardIndex"
-                                    @update:selectedCardIndex="selectedCardIndex = $event" />
+                                <CardCarousel />
                             </template>
                             <template #fallback>
                                 <q-spinner-cube color="green" size="5.5em" />
